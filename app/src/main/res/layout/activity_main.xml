@@ -4,89 +4,151 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#343e56"
+    android:background="@color/cell_background"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingRight="40dp"
-        android:paddingLeft="40dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true">
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <TextView
+            android:id="@+id/app_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Score X :- 0"
-            android:textSize="30sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:id="@+id/ScoreX">
+            android:fontFamily="cursive"
+            android:gravity="center|center_vertical"
+            android:text="@string/activity_name"
+            android:textAlignment="center"
+            android:textColor="@color/purple_200"
+            android:textSize="36sp"
+            android:textStyle="bold">
 
         </TextView>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Score Y :- 0"
-            android:textSize="30sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:id="@+id/ScoreY">
+            android:orientation="horizontal">
 
-        </TextView>
+            <TextView
+                android:id="@+id/player_1_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:text="@string/player_1_score"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/player_2_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="right"
+                android:text="@string/player_2_score"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/player_1_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:text="@string/init_score"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/player_2_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="right|end"
+                android:text="@string/init_score"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
 
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/button4"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_centerInParent="true"
-        android:id="@+id/button4"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="#343e56">
+        android:background="@color/cell_background">
 
         <ImageView
+            android:id="@+id/buttonImage4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/buttonImage4">
+            android:contentDescription="@string/img_cell_desc">
 
         </ImageView>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_centerInParent="true"
         android:id="@+id/button3"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_centerInParent="true"
         android:layout_toLeftOf="@id/button4"
-        android:background="#343e56">
+        android:background="@color/cell_background">
 
         <ImageView
+            android:id="@+id/buttonImage3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/buttonImage3">
+            android:contentDescription="@string/img_cell_desc">
 
         </ImageView>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_centerInParent="true"
         android:id="@+id/button5"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_centerInParent="true"
         android:layout_toRightOf="@id/button4"
-        android:background="#343e56">
+        android:background="@color/cell_background">
 
         <ImageView
+            android:id="@+id/buttonImage5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/buttonImage5">
+            android:contentDescription="@string/img_cell_desc">
 
         </ImageView>
 
@@ -95,155 +157,161 @@
     <RelativeLayout
         android:layout_width="330dp"
         android:layout_height="8dp"
-        android:background="#F69e78"
-        android:layout_centerHorizontal="true"
         android:layout_above="@id/button4"
-        android:layout_marginBottom="8dp">
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:background="@color/lattice_background">
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="330dp"
         android:layout_height="8dp"
-        android:background="#F69e78"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/button4"
-        android:layout_marginTop="8dp">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:background="@color/lattice_background">
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="8dp"
         android:layout_height="350dp"
-        android:background="#F69e78"
         android:layout_centerVertical="true"
+        android:layout_marginRight="-14dp"
         android:layout_toLeftOf="@id/button4"
-        android:layout_marginRight="-14dp">
+        android:background="@color/lattice_background">
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="8dp"
         android:layout_height="350dp"
-        android:background="#F69e78"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="-14dp"
         android:layout_toRightOf="@id/button4"
-        android:layout_marginLeft="-14dp">
+        android:background="@color/lattice_background">
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/button0"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_centerInParent="true"
-        android:id="@+id/button0"
         android:layout_above="@id/button4"
+        android:layout_centerInParent="true"
         android:layout_marginBottom="20dp"
         android:layout_toLeftOf="@id/button1"
-        android:background="#343e56">
+        android:background="@color/cell_background">
 
         <ImageView
             android:id="@+id/buttonImage0"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:contentDescription="@string/img_cell_desc">
 
         </ImageView>
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/button1"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_centerInParent="true"
-        android:id="@+id/button1"
         android:layout_above="@id/button4"
-        android:layout_marginBottom="20dp"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="#343e56">
+        android:layout_marginBottom="20dp"
+        android:background="@color/cell_background">
 
         <ImageView
+            android:id="@+id/buttonImage1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/buttonImage1">
+            android:contentDescription="@string/img_cell_desc">
 
         </ImageView>
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/button2"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_centerInParent="true"
-        android:id="@+id/button2"
         android:layout_above="@id/button4"
+        android:layout_centerInParent="true"
         android:layout_marginBottom="20dp"
         android:layout_toRightOf="@id/button1"
-        android:background="#343e56">
+        android:background="@color/cell_background">
 
         <ImageView
+            android:id="@+id/buttonImage2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/buttonImage2">
+            android:contentDescription="@string/img_cell_desc">
 
         </ImageView>
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/button6"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_centerInParent="true"
-        android:id="@+id/button6"
         android:layout_below="@id/button4"
+        android:layout_centerInParent="true"
         android:layout_marginTop="20dp"
         android:layout_toLeftOf="@id/button7"
 
-        android:background="#343e56">
+        android:background="@color/cell_background">
 
         <ImageView
+            android:id="@+id/buttonImage6"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/buttonImage6">
+            android:contentDescription="@string/img_cell_desc">
 
         </ImageView>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_centerInParent="true"
         android:id="@+id/button7"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_below="@id/button4"
-        android:layout_marginTop="20dp"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
-        android:background="#343e56">
+        android:background="@color/cell_background">
 
         <ImageView
+            android:id="@+id/buttonImage7"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/buttonImage7">
+            android:contentDescription="@string/img_cell_desc">
 
         </ImageView>
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/button8"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_centerInParent="true"
-        android:id="@+id/button8"
         android:layout_below="@id/button4"
+        android:layout_centerInParent="true"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@id/button7"
-        android:background="#343e56">
+        android:background="@color/cell_background">
 
         <ImageView
+            android:id="@+id/buttonImage8"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/buttonImage8">
+            android:contentDescription="@string/img_cell_desc">
 
         </ImageView>
 

@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">aTicTacToe</string>
+    <string name="activity_name">a Tic Tac Toe</string>
     <string name="reset">Reset</string>
+    <string name="player_1_score">Player 1 Score</string>
+    <string name="player_2_score">Player 2 Score</string>
+    <string name="img_cell_desc">game cell</string>
+    <string name="init_score">0</string>
 </resources>
