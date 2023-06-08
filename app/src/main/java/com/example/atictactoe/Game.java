@@ -1,112 +1,86 @@
 package com.example.atictactoe;
 
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.stream.IntStream;
 
 public class Game {
-    private int winner;
+    static final char CHAR_CROSS = 'X';
+    static final char CHAR_CIRCLE = 'O';
     private int playerNo;
     private char playerImg;
-    private final TextView playerOneScore;
-    private final TextView playerTwoScore;
-    private final Cell[] cellArray = new Cell[] {
-            new Cell(0, 0, null),
-            new Cell(1, 0, null),
-            new Cell(2, 0, null),
-            new Cell(3, 0, null),
-            new Cell(4, 0, null),
-            new Cell(5, 0, null),
-            new Cell(6, 0, null),
-            new Cell(7, 0, null),
-            new Cell(8, 0, null)
-    };
-    private final List<Cell> cellList = Arrays.asList(cellArray);
+    private int winner;
+    private int[] board;
     private final int[][] WINNING_COMBOS = {
             {0, 1, 2}, {3, 4, 5}, {6, 7, 8},    //rows
             {0, 3, 6}, {1, 4, 7}, {2, 5, 8},    //columns
             {0, 4, 8}, {2, 4, 6}    //cross
     };
-    Game(MainActivity mainActivity) {
-        playerOneScore = mainActivity.findViewById(R.id.player_1_score);
-        playerTwoScore = mainActivity.findViewById(R.id.player_2_score);
-        setPlayerOneScore("0");
-        setPlayerTwoScore("0");
-        Button resetButton = mainActivity.findViewById(R.id.Reset);
-        resetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                resetGame();
-            }
-        });
-
-        for(Cell cell : cellList) {
-            try {
-                ImageView img = (ImageView) mainActivity.findViewById(
-                    mainActivity.getResources().getIdentifier(
-                        "buttonImage" + cell.getIdx(), "id", mainActivity.getPackageName()
-                    )
-                );
-                cell.bindComponent(img);
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        makeMove(cell);
-                    }
-                });
-            } catch (Exception e) {
-                Log.e("ATicTacToe", "Bad cell:" + cell.getIdx());
-            }
-        }
-        resetGame();
+    Game(int playerNo, char playerImg, int[] board) {
+        initGame(playerNo, playerImg, board);
     }
-    String getPlayerOneScore() {
-        return playerOneScore.getText().toString();
+    Game(Game game) {
+        initGame(game.getPlayerNo(), game.getPlayerImg(), game.getBoard());
     }
-    void setPlayerOneScore(String str) {
-        playerOneScore.setText(str);
+    void initGame(int playerNo, char playerImg, int[] board) {
+        this.playerNo = playerNo;
+        this.playerImg = playerImg;
+        if (board == null)
+            initBoard();
+        else
+            this.board = board.clone();
+        this.winner = checkWinner();
     }
-    String getPlayerTwoScore() {
-        return playerTwoScore.getText().toString();
-    }
-    void setPlayerTwoScore(String str) {
-        playerTwoScore.setText(str);
-    }
-    void incScore() {
-        if (winner == 1) {
-            setPlayerOneScore(String.valueOf(Integer.parseInt(getPlayerOneScore()) + 1));
-        } else {
-            setPlayerTwoScore(String.valueOf(Integer.parseInt(getPlayerTwoScore()) + 1));
+    void initBoard() {
+        board = new int[MainActivity.BOARD_SIZE];
+        for (int i = 0; i < MainActivity.BOARD_SIZE; i++) {
+            board[i] = 0;
         }
     }
-    boolean validMove(Cell cell) {
-        return cell.isEmpty() && cell.getIdx() >= 0 && cell.getIdx() < cellArray.length;
+    public int getWinner() {
+        return winner;
     }
-    Cell[] getEmptyCells() {
-        return cellList
-                .stream()
-                .filter(cell -> cell.isEmpty())
-                .toArray(Cell[]::new);
-    };
-    boolean hasWinner() {
+    public int getPlayerNo() {
+        return playerNo;
+    }
+    public char getPlayerImg() {
+        return playerImg;
+    }
+    public int[] getBoard() {
+        return board;
+    }
+    public boolean isEmptyCell(int cell) {
+        return board[cell] == 0;
+    }
+    public boolean noWinner() {
+        return winner == 0;
+    }
+    public boolean isWinner(int winner) {
         return winner == 1 || winner == 2;
     }
-    final void togglePlayer() {
+    public boolean hasWinner() { return isWinner(winner); }
+    public boolean isDraw() {
+        return winner == -1;
+    }
+    public void togglePlayer() {
         playerNo = playerNo % 2 + 1;
-        playerImg = playerImg == Cell.CHAR_CROSS ? Cell.CHAR_CIRCLE : Cell.CHAR_CROSS;
+        playerImg = playerImg == CHAR_CROSS ? CHAR_CIRCLE : CHAR_CROSS;
+    }
+    public int[] getEmptyCells() {
+        return IntStream.range(0, board.length)
+                .filter(i -> isEmptyCell(i))
+                .toArray();
     }
     int hasWon(int[] threeCells) {
-        int played = cellArray[threeCells[1]].getPlayed();
-        return cellArray[threeCells[0]].getPlayed() == played &&
-            played == cellArray[threeCells[2]].getPlayed() ? played : 0;
-    };
-    int getWinner() {
-        Cell[] emptyCells = getEmptyCells();
+        int played = board[threeCells[1]];
+        return board[threeCells[0]] == played &&
+                played == board[threeCells[2]] ? played : 0;
+    }
+    int checkWinner() {
+        if (isWinner(winner))
+            return winner;
+        int[] emptyCells = getEmptyCells();
 
         if (emptyCells.length > 4) return 0; // Game cannot be won until the 5th move
 
@@ -118,26 +92,18 @@ public class Game {
         } while ((winner == 0) && (combosLeft > 0));
         // -1 for draw, 0 for no win, 1 or 2 for winning player
         return (winner == 0) && emptyCells.length == 0 ? -1 : winner;
-    };
-    void makeMove(Cell cell) {
-        if (validMove(cell) && !hasWinner()) {
-            cell.getComponent().setImageResource(playerImg == Cell.CHAR_CROSS ? R.drawable.cross : R.drawable.circle);
-            cell.setVal(playerNo);
-            winner = getWinner();
-            if (!hasWinner())
-                togglePlayer();
-            else
-                incScore();
+    }
+    void makeMove(int cell) {
+        if (board[cell] == 0) {
+            board[cell] = playerNo;
+            winner = checkWinner();
+            togglePlayer();
         }
     }
-    void resetGame() {
-        playerNo = 1;
-        playerImg = Cell.CHAR_CROSS;
+    void resetGame(int playerNo, char playerImg) {
+        this.playerNo = playerNo;
+        this.playerImg = playerImg;
         winner = 0;
-        for(Cell cell : cellList) {
-            cell.setVal(winner);
-            if (cell.getComponent() != null)
-                cell.getComponent().setImageDrawable(null);
-        }
+        Arrays.fill(board, 0);
     }
 }

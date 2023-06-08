@@ -318,12 +318,27 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/Reset"
+        android:id="@+id/mega_brain"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_below="@+id/button8"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/purple_200"
+        android:text="@string/mega_brain"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp">
+
+    </Button>
+
+    <Button
+        android:id="@+id/Reset"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/mega_brain"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/purple_200"
         android:text="@string/reset"
         android:textColor="@color/white"

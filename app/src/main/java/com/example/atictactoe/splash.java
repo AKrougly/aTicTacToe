@@ -12,7 +12,6 @@ import com.example.atictactoe.MainActivity;
 import com.example.atictactoe.R;
 
 public class splash extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +27,5 @@ public class splash extends AppCompatActivity {
                 finish();
             }
         },4000);
-
     }
 }
