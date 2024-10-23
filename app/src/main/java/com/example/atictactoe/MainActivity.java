@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView playerOneScore;
     private TextView playerTwoScore;
     private final ImageView[] viewBoard = new ImageView[BOARD_SIZE];
-    private int initPlayerNo = 1;
-    private char initPlayerImg = Game.CHAR_CROSS;
+    private final int initPlayerNo = 1;
+    private final char initPlayerImg = Game.CHAR_CROSS;
     private boolean autoPlay = false;
     Button buttonAutoPlay;
     Game game;
